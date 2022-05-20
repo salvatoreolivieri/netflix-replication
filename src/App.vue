@@ -1,20 +1,30 @@
 <template>
 
-  <HeaderComponent
-  @startSearch="cercaFilm"
-  />
+  <div>
+
+    <HeaderComponent
+    @startSearch="searchMovie"
+    />
+  
+    <MainComponent
+    :movie="filteredMovie"
+    />
+
+  </div>
 
 </template>
 
 <script>
 import HeaderComponent from './components/HeaderComponent.vue';
+import MainComponent from "./components/MainComponent.vue"
 import axios from "axios"
 
 export default {
   name: 'App',
   components: {
     HeaderComponent,
-  },
+    MainComponent
+},
 
   data(){
     return{
@@ -24,6 +34,7 @@ export default {
         language: "it-IT",
         query: "ritorno al futuro"
       },
+      filteredMovie:[]
     }
   },
 
@@ -33,14 +44,17 @@ export default {
         params: this.apiParameters
       })
       .then(output => {
-        console.log(output.data);
+        console.log(output.data.results);
+        this.filteredMovie = output.data.results
+        console.log("ecco il log dei filtered movie:",this.filteredMovie);
+
       })
       .catch(error =>{
         console.log(error);
       })
     },
 
-    cercaFilm(searchInput){
+    searchMovie(searchInput){
       this.apiParameters.query = searchInput
       console.log("ecco cosa ha cercato l'utente:", this.apiParameters.query);
       this.apiRequest()
@@ -53,7 +67,12 @@ export default {
   },
 
   computed:{
+    SearchedMovie(){
+      let movieSearched = this.output.data.results;
+      console.log("ecco i film cercati:", movieSearched);
 
+      return movieSearched
+    }
   }
 }
 </script>
