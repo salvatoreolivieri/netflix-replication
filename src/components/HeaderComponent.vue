@@ -1,7 +1,7 @@
 <template>
 
 <header>
-  Prova
+Prova
 </header>
   
 </template>
@@ -12,6 +12,8 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+
+
 
 </style>
