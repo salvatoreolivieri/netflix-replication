@@ -7,13 +7,16 @@
 
   <div>
     <select>
-      <option value="">Serie Tv</option>
-      <option value="">Film</option>
+      <option value="">Tv Series</option>
+      <option value="">Movies</option>
     </select>
   </div>
 
   <div>
-    <input type="text" placeholder="Search">
+    <input
+    @keyup.enter="$emit('startSearch', searchInput)"
+    v-model="searchInput"
+    type="text" placeholder="Search">
   </div>
 
 </header>
@@ -22,7 +25,12 @@
 
 <script>
 export default {
-  name: "HeaderComponent.vue"
+  name: "HeaderComponent.vue",
+  data(){
+    return{
+      searchInput: ""
+    }
+  }
 }
 </script>
 
@@ -37,6 +45,7 @@ header{
   align-items: center;
   padding: 0px 20px;
   background-color: $secondary-color;
+  border-bottom: 0.5px solid white;
 
   .img-container{
     width: 200px;
@@ -52,17 +61,16 @@ header{
     border-radius: 5px;
     background-color: $secondary-color;
     color: white;
-    font-size: 16px
+    font-size: 18px
   }
 
   input{
     border: none;
-    padding: 5px;
+    padding: 10px;
     background-color: $secondary-color;
     color: white;
-    border-bottom: 1px solid $primary-color;
-    
-
+    border-bottom: 0.5px solid $primary-color;
+    font-size: 16px;
 
     &:focus{
       outline: none;
