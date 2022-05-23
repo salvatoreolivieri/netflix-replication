@@ -8,6 +8,7 @@
   
     <MainComponent
     :movie="filteredMovie"
+    :series="filteredSeries"
     />
 
   </div>
@@ -28,19 +29,21 @@ export default {
 
   data(){
     return{
-      apiUrl: "https://api.themoviedb.org/3/search/movie",
+      apiUrlMovie: "https://api.themoviedb.org/3/search/movie",
+      apiUrlTvSeries: "https://api.themoviedb.org/3/search/tv",
       apiParameters:{
         api_key: "4be099c980b79a719aecda19d1081396",
         language: "it-IT",
         query: ""
       },
-      filteredMovie:[]
+      filteredMovie:[],
+      filteredSeries: []
     }
   },
 
   methods:{
-    apiRequest(){
-      axios.get(this.apiUrl,{
+    apiRequestMovie(){
+      axios.get(this.apiUrlMovie,{
         params: this.apiParameters
       })
       .then(output => {
@@ -57,13 +60,29 @@ export default {
     searchMovie(searchInput){
       this.apiParameters.query = searchInput
       console.log("ecco cosa ha cercato l'utente:", this.apiParameters.query);
-      this.apiRequest()
-    }
+      this.apiRequestTvSeries()
+      // this.apiRequestMovie()
+    },
+
+    apiRequestTvSeries(){
+      axios.get(this.apiUrlTvSeries,{
+        params: this.apiParameters
+      })
+      .then(output => {
+        console.log(output.data.results);
+        this.filteredSeries = output.data.results
+        console.log("ecco il log dei filtered tv series:",this.filteredSeries);
+
+      })
+      .catch(error =>{
+        console.log(error);
+      })
+    },
 
   },
 
   mounted(){
-    this.apiRequest()
+    // this.apiRequest()
   },
 
   computed:{

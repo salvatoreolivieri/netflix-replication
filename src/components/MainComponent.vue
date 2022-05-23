@@ -8,11 +8,53 @@
     v-for="(item,index) in movie" :key="index"
     class="movie-card">
 
-      <img :src= "`https://image.tmdb.org/t/p/original/${item.backdrop_path}`" alt="">
+      <img
+      v-if="item.backdrop_path === null"
+      src="../assets/img/not-found.png" alt="">
+
+      <img
+      v-else
+      :src= "`https://image.tmdb.org/t/p/original/${item.backdrop_path}`" alt="">
 
       <div class="info-container">
         <h4 style="margin-bottom: 10px">Titolo: "{{item.title}}"</h4>
         <h5 style="margin-bottom: 10px">Titolo Originale: "{{item.original_title}}"</h5>
+
+        <div style="margin-bottom: 10px"
+        v-if="item.original_language === 'it'" >
+        <img style="width: 50px" src="../assets/img/italy.png" alt="">
+        </div>
+
+        <div style="margin-bottom: 10px"
+        v-else-if="item.original_language === 'en'" >
+        <img style="width: 50px" src="../assets/img/english.png" alt="">
+        </div>
+
+        <p style="margin-bottom: 10px"
+        v-else>Lingua: {{item.original_language}}
+        </p>
+
+        <span>Voto: {{item.vote_average}} / 10</span>
+      </div>
+
+
+    </div>
+
+    <div
+    v-for="(item,index) in series" :key="index"
+    class="movie-card">
+
+      <img
+      v-if="item.backdrop_path === null"
+      src="../assets/img/not-found.png" alt="">
+
+      <img
+      v-else
+      :src= "`https://image.tmdb.org/t/p/original/${item.backdrop_path}`" alt="">
+
+      <div class="info-container">
+        <h4 style="margin-bottom: 10px">Titolo: "{{item.name}}"</h4>
+        <h5 style="margin-bottom: 10px">Titolo Originale: "{{item.original_name}}"</h5>
 
         <div style="margin-bottom: 10px"
         v-if="item.original_language === 'it'" >
@@ -44,7 +86,8 @@
 export default {
   name: "MainComponent.vue",
   props: {
-    movie: Array
+    movie: Array,
+    series: Array
   },
   data(){
     return{
@@ -81,6 +124,7 @@ export default {
     width: calc((100% / 4) - 40px);
     height: 100%;
     margin-right: 10px;
+    margin-bottom: 10px;
     border: 1px solid white;
     position: relative;
     text-align: center;
@@ -110,6 +154,7 @@ export default {
     position: absolute;
     top: 0;
     right: 0;
+    width: 100%;
     height: 100%;
     padding: 20px;
     display: none;
