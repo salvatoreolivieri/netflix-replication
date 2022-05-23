@@ -32,7 +32,7 @@ export default {
       apiParameters:{
         api_key: "4be099c980b79a719aecda19d1081396",
         language: "it-IT",
-        query: "ritorno al futuro"
+        query: ""
       },
       filteredMovie:[]
     }

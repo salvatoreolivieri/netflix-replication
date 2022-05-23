@@ -7,6 +7,7 @@
 
   <div>
     <select>
+      <option value="">All</option>
       <option value="">Tv Series</option>
       <option value="">Movies</option>
     </select>
@@ -45,13 +46,13 @@ header{
   align-items: center;
   padding: 0px 20px;
   background-color: $secondary-color;
-  border-bottom: 0.5px solid white;
 
   .img-container{
     width: 200px;
 
     img{
       width: 100%;
+      cursor: pointer;
     }
   }
 
