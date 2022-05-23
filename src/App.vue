@@ -61,7 +61,7 @@ export default {
       this.apiParameters.query = searchInput
       console.log("ecco cosa ha cercato l'utente:", this.apiParameters.query);
       this.apiRequestTvSeries()
-      // this.apiRequestMovie()
+      this.apiRequestMovie()
     },
 
     apiRequestTvSeries(){
