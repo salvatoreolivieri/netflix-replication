@@ -6,7 +6,9 @@
   </div>
 
   <div>
-    <select>
+    <select
+    @change="$emit('filterItem', contentType)"
+    >
       <option value="">All</option>
       <option value="">Tv Series</option>
       <option value="">Movies</option>

@@ -10,7 +10,7 @@
 
   <div class="movie-container">
 
-    <MovieCardComponent 
+    <CardComponent 
     v-for="(object) in movie" :key="object.id"
     :item="object"
     />
@@ -21,12 +21,12 @@
   <!-- serie tv -->
 
   <div  v-if="series.length > 0" class="movie-container">
-    <h1>Serie tv</h1>
+    <h1>Serie TV</h1>
   </div>
 
   <div class="movie-container">
 
-    <SerieTvCardComponent
+    <CardComponent
     v-for="(object) in series" :key="object.id"
     :item="object"
     />
@@ -38,11 +38,11 @@
 </template>
 
 <script>
-import MovieCardComponent from './MovieCardComponent.vue'
-import SerieTvCardComponent from './SerieTvCardComponent.vue';
+import CardComponent from './CardComponent.vue';
 
 export default {
     name: "MainComponent.vue",
+    components: { CardComponent },
     props: {
         movie: Array,
         series: Array
@@ -52,16 +52,6 @@ export default {
             urlImage: "https://image.tmdb.org/t/p/original/",
         };
     },
-    methods: {
-        numberoStellePiene(average) {
-            return Math.round(average / 2);
-        },
-
-        numeroStelleVuote(){
-          return 5 - this.numberoStellePiene
-        }
-    },
-    components: { MovieCardComponent, SerieTvCardComponent }
 }
 </script>
 
@@ -98,9 +88,8 @@ svg{
     }
 
     &:hover img{
-      opacity: 0.5;
+      opacity: 0.3;
     } 
-
 
   }
 

@@ -12,8 +12,8 @@
       :src= "`https://image.tmdb.org/t/p/original/${item.backdrop_path}`" alt="">
 
       <div class="info-container">
-        <h4 style="margin-bottom: 10px">Titolo: "{{item.name}}"</h4>
-        <h5 style="margin-bottom: 10px">Titolo Originale: "{{item.original_name}}"</h5>
+        <h4 style="margin-bottom: 10px">Titolo: "{{item.title || item.name}}"</h4>
+        <h5 style="margin-bottom: 10px">Titolo Originale: "{{item.original_title || item.original_name}}"</h5>
 
         <div style="margin-bottom: 10px"
         v-if="item.original_language === 'it'" >
@@ -29,11 +29,15 @@
         v-else>Lingua: {{item.original_language}}
         </p>
 
-        <StellaPienaComponent
-        />
-
-        <StellaVuotaComponent
-        />
+        <div>
+          <StellaPienaComponent
+          v-for="(number, index) in numberoStellePiene()" :key="`piena${index}`"
+          />
+          
+          <StellaVuotaComponent
+          v-for="(number, index) in 5 - numberoStellePiene()" :key='`vuota${index}`'
+          />
+        </div>
 
       </div>
 
@@ -47,11 +51,20 @@ import StellaPienaComponent from './StellaPienaComponent.vue';
 import StellaVuotaComponent from './StellaVuotaComponent.vue';
 
 export default {
-    name: "SerieTvCardComponent",
+    name: "CardComponent",
     components: { StellaPienaComponent, StellaVuotaComponent },
     props:{
       item: Object
-    }
+    },
+      methods: {
+        numberoStellePiene() {
+            return Math.round(this.item.vote_average / 2);
+        },
+
+        numeroStelleVuote(){
+          return 5 - this.numberoStellePiene
+        }
+    },
 }
 
 </script>
