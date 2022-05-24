@@ -2,6 +2,19 @@
 
 <main>
 
+  <div v-if="series.length === 0" class="movie-container">
+    <h1>I più popolari del momento</h1>
+  </div>
+
+  <div v-if="series.length === 0" class="movie-container">
+    <CardComponent 
+    v-for="(object,index) in this.popularMovie" :key="`popular${index}`"
+    :item="object"
+    />
+  </div>
+
+ 
+
   <!-- films -->
 
   <div v-if="movie.length > 0" class="movie-container">
@@ -39,19 +52,49 @@
 
 <script>
 import CardComponent from './CardComponent.vue';
+import axios from "axios"
+
 
 export default {
     name: "MainComponent.vue",
     components: { CardComponent },
     props: {
         movie: Array,
-        series: Array
+        series: Array,
     },
     data() {
         return {
             urlImage: "https://image.tmdb.org/t/p/original/",
+            apiUrlPopular: "https://api.themoviedb.org/3/movie/popular",
+            apiParameters:{
+              api_key: "4be099c980b79a719aecda19d1081396",
+              language: "it-IT",
+              query: ""
+            },
+            popularMovie:[]
         };
     },
+
+    methods:{
+      apiRequestPopular(){
+      axios.get(this.apiUrlPopular,{
+        params: this.apiParameters
+      })
+      .then(output => {
+        console.log(output.data.results);
+        this.popularMovie = output.data.results
+        console.log("ecco il log dei popular movie:",this.popularMovie);
+
+      })
+      .catch(error =>{
+        console.log(error);
+      })
+    },
+    },
+
+    mounted(){
+      this.apiRequestPopular()
+    }
 }
 </script>
 
@@ -88,7 +131,7 @@ svg{
     }
 
     &:hover img{
-      opacity: 0.3;
+      opacity: 0.5;
     } 
 
   }

@@ -5,6 +5,7 @@
     <HeaderComponent
     @startSearch="searchMovie"
     @filterItem="changeContentType"
+    :research="filteredMovie"
     />
   
     <MainComponent
@@ -32,6 +33,7 @@ export default {
     return{
       apiUrlMovie: "https://api.themoviedb.org/3/search/movie",
       apiUrlTvSeries: "https://api.themoviedb.org/3/search/tv",
+      apiUrlPopular: "https://api.themoviedb.org/3/movie/popular",
       apiParameters:{
         api_key: "4be099c980b79a719aecda19d1081396",
         language: "it-IT",
@@ -99,7 +101,6 @@ export default {
   },
 
   mounted(){
-    // this.apiRequest()
   },
 
   computed:{

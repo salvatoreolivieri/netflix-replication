@@ -5,7 +5,7 @@
     <img @click="reloadPage" src="../assets/img/netflix-logo.png" alt="">
   </div>
 
-  <div>
+  <div v-if="research.length > 0">
     <select
     @change="$emit('filterItem', contentType)"
     v-model="contentType"
@@ -30,6 +30,9 @@
 <script>
 export default {
   name: "HeaderComponent.vue",
+  props: {
+    research: Array
+    },
   data(){
     return{
       searchInput: "",
