@@ -8,10 +8,11 @@
   <div>
     <select
     @change="$emit('filterItem', contentType)"
+    v-model="contentType"
     >
-      <option value="">All</option>
-      <option value="">Tv Series</option>
-      <option value="">Movies</option>
+      <option value="all">All</option>
+      <option value="tv">Tv Series</option>
+      <option value="movie">Movies</option>
     </select>
   </div>
 
@@ -31,7 +32,8 @@ export default {
   name: "HeaderComponent.vue",
   data(){
     return{
-      searchInput: ""
+      searchInput: "",
+      contentType: "all"
     }
   },
 

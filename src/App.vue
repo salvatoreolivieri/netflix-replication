@@ -4,6 +4,7 @@
 
     <HeaderComponent
     @startSearch="searchMovie"
+    @filterItem="changeContentType"
     />
   
     <MainComponent
@@ -37,7 +38,8 @@ export default {
         query: ""
       },
       filteredMovie:[],
-      filteredSeries: []
+      filteredSeries: [],
+      contentType: ""
     }
   },
 
@@ -62,6 +64,21 @@ export default {
       console.log("ecco cosa ha cercato l'utente:", this.apiParameters.query);
       this.apiRequestTvSeries()
       this.apiRequestMovie()
+    },
+
+    changeContentType(contentType){
+      console.log(contentType);
+      if (contentType === 'all') {
+        this.apiRequestTvSeries()
+        this.apiRequestMovie()
+      } else if (contentType === 'tv'){
+        this.apiRequestTvSeries()
+        this.filteredMovie =[]
+      } else{
+        this.apiRequestMovie()
+        this.filteredSeries =[]
+
+      }
     },
 
     apiRequestTvSeries(){
