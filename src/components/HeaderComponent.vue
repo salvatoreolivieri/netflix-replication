@@ -2,7 +2,7 @@
 
 <header>
   <div class="img-container">
-    <img src="../assets/img/netflix-logo.png" alt="">
+    <img @click="reloadPage" src="../assets/img/netflix-logo.png" alt="">
   </div>
 
   <div>
@@ -15,7 +15,7 @@
 
   <div>
     <input
-    @keyup.enter="$emit('startSearch', searchInput)"
+    @keyup.enter="startSearch"
     v-model="searchInput"
     type="text" placeholder="Search">
   </div>
@@ -30,6 +30,17 @@ export default {
   data(){
     return{
       searchInput: ""
+    }
+  },
+
+  methods: {
+    reloadPage() {
+      window.location.reload();
+    },
+    startSearch(){
+      this.$emit('startSearch', this.searchInput);
+      this.searchInput = ""
+
     }
   }
 }
